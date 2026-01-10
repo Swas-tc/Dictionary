@@ -1,1 +1,1 @@
-a dictionary that also give pronounciation od the word and speak it
+a dictionary that also give pronounciation and the word and speak it
