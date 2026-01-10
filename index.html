@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dictionary</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <div class="brand">Swas-tc</div>
+    </header>
+
+    <main>
+        <div class="dictionary">
+            Dictionary
+        </div>
+        <div class="search-section">
+            <input type="text" id="inp-word" placeholder="Enter word...">
+            <button id="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+
+        <div id="error-msg"></div>
+        <div id="loading" class="hidden">Scanning...</div>
+
+        <div id="result" class="hidden">
+             
+             <div class="word-row">
+                 <h1 id="word-text"></h1>
+                 <button id="play-sound-btn" onclick="playSound()">
+                     <i class="fa-solid fa-play"></i>
+                 </button>
+             </div>
+             
+             <div class="phonetics" id="phonetic-text"></div>
+
+             <div class="divider"></div>
+
+             <div class="details">
+                 <span id="part-of-speech"></span>
+                 <p id="definition"></p>
+             </div>
+
+             <div class="example-box">
+                 <span class="label">Ex:</span> <span id="example"></span>
+             </div>
+        </div>
+    </main>
+
+    <audio id="audio"></audio>
+    <script src="script.js"></script>
+</body>
+</html>
