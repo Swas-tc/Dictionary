@@ -3,64 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Swas-tc Dictionary</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Dictionary</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-    <div class="app-container">
-        <header>
-            <div class="brand">Swas-tc</div>
-            <div class="theme-toggle">
-                </div>
-        </header>
+    <header>
+        <div class="brand">Swas-tc</div>
+    </header>
 
-        <main>
-            <div class="hero-section">
-                <h1 class="dictionary-title">Dictionary</h1>
-                <p class="subtitle">Find meanings, phonetics, and more.</p>
-            </div>
+    <main>
+        <div class="dictionary">
+            Dictionary
+        </div>
+        <div class="search-section">
+            <input type="text" id="inp-word" placeholder="Enter word...">
+            <button id="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
 
-            <div class="search-box">
-                <input type="text" id="inp-word" placeholder="Type a word here..." autocomplete="off">
-                <button id="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
-            </div>
+        <div id="error-msg"></div>
+        <div id="loading" class="hidden">Scanning...</div>
 
-            <div id="status-msg" class="status-msg"></div>
+        <div id="result" class="hidden">
+             
+             <div class="word-row">
+                 <h1 id="word-text"></h1>
+                 <button id="play-sound-btn" onclick="playSound()">
+                     <i class="fa-solid fa-play"></i>
+                 </button>
+             </div>
+             
+             <div class="phonetics" id="phonetic-text"></div>
 
-            <div id="result" class="result-container hidden">
-                <div class="word-header">
-                    <div class="word-info">
-                        <h2 id="word-text"></h2>
-                        <span id="phonetic-text" class="phonetic"></span>
-                    </div>
-                    <button id="play-sound-btn" class="audio-btn" onclick="playSound()">
-                        <i class="fa-solid fa-play"></i>
-                    </button>
-                </div>
+             <div class="divider"></div>
 
-                <div class="divider"></div>
+             <div class="details">
+                 <span id="part-of-speech"></span>
+                 <p id="definition"></p>
+             </div>
 
-                <div class="meaning-section">
-                    <div class="part-of-speech-tag" id="part-of-speech"></div>
-                    <p id="definition" class="definition-text"></p>
-                </div>
-
-                <div class="example-box hidden">
-                    <span class="ex-label">Example</span>
-                    <p id="example" class="ex-text"></p>
-                </div>
-            </div>
-        </main>
-        
-        <footer>
-            <p>&copy; 2025 Swas-tc Dev</p>
-        </footer>
-    </div>
+             <div class="example-box">
+                 <span class="label">Ex:</span> <span id="example"></span>
+             </div>
+        </div>
+    </main>
 
     <audio id="audio"></audio>
     <script src="script.js"></script>
