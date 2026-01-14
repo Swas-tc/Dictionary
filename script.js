@@ -1,15 +1,12 @@
 const url = "https://api.dictionaryapi.dev/api/v2/entries/en/";
 const searchBtn = document.getElementById("search-btn");
 const inpWord = document.getElementById("inp-word");
-const statusMsg = document.getElementById("status-msg");
+const errorMsg = document.getElementById("error-msg");
 const resultDiv = document.getElementById("result");
+const loadingDiv = document.getElementById("loading");
 const audio = document.getElementById("audio");
 
-// Play Sound function must be global or attached to the element
-function playSound() {
-    audio.play();
-}
-
+// Search Trigger
 searchBtn.addEventListener("click", searchWord);
 inpWord.addEventListener("keydown", (e) => {
     if (e.key === "Enter") searchWord();
@@ -18,68 +15,64 @@ inpWord.addEventListener("keydown", (e) => {
 async function searchWord() {
     const word = inpWord.value.trim();
     if (!word) {
-        setStatus("Please enter a word", "error");
+        errorMsg.textContent = "Type a word...";
         return;
     }
 
-    // Reset UI before fetch
+    // Reset State
+    errorMsg.textContent = "";
     resultDiv.classList.add("hidden");
-    setStatus("Searching...", "loading");
+    loadingDiv.classList.remove("hidden");
 
     try {
         const response = await fetch(`${url}${word}`);
         if (!response.ok) throw new Error();
         const data = await response.json();
-        
-        // Clear loading, show data
-        setStatus(""); 
         updateUI(data[0]);
     } catch (error) {
-        setStatus(`Could not find "${word}"`, "error");
+        loadingDiv.classList.add("hidden");
+        errorMsg.textContent = "Word not found.";
     }
-}
-
-function setStatus(msg, type) {
-    statusMsg.textContent = msg;
-    statusMsg.style.color = type === "error" ? "var(--error-color)" : "var(--accent-color)";
 }
 
 function updateUI(data) {
-    // 1. Basic Word Info
+    // 1. Data Parsing
     document.getElementById("word-text").textContent = data.word;
     
-    // 2. Phonetics
+    // Get Phonetic
     const phoneticStr = data.phonetic || (data.phonetics.find(p => p.text)?.text) || "";
     document.getElementById("phonetic-text").textContent = phoneticStr;
 
-    // 3. Meaning (Handle if meanings array is empty)
+    // Get Meaning
     const meaning = data.meanings[0];
-    if(meaning) {
-        document.getElementById("part-of-speech").textContent = meaning.partOfSpeech;
-        document.getElementById("definition").textContent = meaning.definitions[0].definition;
+    document.getElementById("part-of-speech").textContent = meaning.partOfSpeech;
+    document.getElementById("definition").textContent = meaning.definitions[0].definition;
 
-        // 4. Example
-        const ex = meaning.definitions[0].example;
-        const exBox = document.querySelector(".example-box");
-        if(ex) {
-            document.getElementById("example").textContent = `"${ex}"`;
-            exBox.classList.remove("hidden");
-        } else {
-            exBox.classList.add("hidden");
-        }
+    // Get Example
+    const ex = meaning.definitions[0].example;
+    const exampleElem = document.getElementById("example");
+    if(ex) {
+        exampleElem.textContent = ex;
+        document.querySelector(".example-box").classList.remove("hidden");
+    } else {
+        document.querySelector(".example-box").classList.add("hidden");
     }
 
-    // 5. Audio Logic
+    // Audio
     const audioSrc = data.phonetics.find(p => p.audio && p.audio !== "")?.audio;
     const playBtn = document.getElementById("play-sound-btn");
     
     if (audioSrc) {
         audio.src = audioSrc;
-        playBtn.style.display = "flex"; // Changed from inline-block to flex for centering
+        playBtn.style.display = "inline-block";
     } else {
         playBtn.style.display = "none";
     }
 
-    // Show Result
+    loadingDiv.classList.add("hidden");
     resultDiv.classList.remove("hidden");
+}
+
+function playSound() {
+    audio.play();
 }
