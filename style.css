@@ -1,242 +1,184 @@
 :root {
-    --bg-color: #0f0f0f; /* Slightly lighter than pure black for depth */
-    --card-bg: #1a1a1a;
+    --bg-color: #000000;
     --accent-color: #AC58E9;
-    --accent-glow: rgba(172, 88, 233, 0.2);
     --text-main: #ffffff;
-    --text-muted: #a0a0a0;
-    --border-color: #333333;
+    --text-muted: #888888;
+    --border-color: #222222;
     --error-color: #ff4b4b;
-    --font-main: 'Inter', sans-serif;
-    --font-header: 'Poppins', sans-serif;
-    --font-serif: 'Playfair Display', serif;
 }
 
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: var(--font-main);
+    font-family: 'Inter', sans-serif;
 }
 
 body {
     background-color: var(--bg-color);
     color: var(--text-main);
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    /* No padding here, handled in container */
+    padding: 0 20px;
 }
 
-.app-container {
-    width: 100%;
-    max-width: 600px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-}
-
-/* Header */
+/* Header / Branding */
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 0 40px 0;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 20px;
 }
 
 .brand {
-    font-family: var(--font-header);
+    font-family: 'Poppins', sans-serif;
     font-weight: 700;
+    font-size: 1.2rem;
     color: var(--accent-color);
+    text-transform: uppercase;
     letter-spacing: 1px;
 }
 
-/* Hero Section */
-.hero-section {
-    text-align: center;
-    margin-bottom: 30px;
+/* Main Layout - Compact width but not a box */
+main {
+    max-width: 600px; /* Limits text width for readability */
+    margin: 0; /* Aligned left, change to '0 auto' if you want centered text */
 }
 
-.dictionary-title {
-    font-family: var(--font-serif);
-    font-size: 3.5rem;
-    font-weight: 700;
-    margin-bottom: 5px;
-    background: linear-gradient(45deg, #fff, #888);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+.dictionary {
+    font-size: 3em;
+    font-family: 'Times New Roman', Times, serif;
+    margin: 15px;
+    margin-left: 200px;
 }
-
-.subtitle {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-}
-
-/* Search Box - Modern Pill Shape */
-.search-box {
-    background-color: var(--card-bg);
+/* Search Section - Compact */
+.search-section {
     display: flex;
-    align-items: center;
-    padding: 5px 5px 5px 20px;
-    border-radius: 50px;
-    border: 1px solid var(--border-color);
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-}
-
-.search-box:focus-within {
-    border-color: var(--accent-color);
-    box-shadow: 0 0 15px var(--accent-glow);
+    gap: 10px;
+    margin-bottom: 15px;
 }
 
 input {
     flex: 1;
     background: transparent;
     border: none;
-    color: #fff;
-    font-size: 1rem;
+    border-bottom: 2px solid var(--border-color);
+    color: #ffffff;
+    font-size: 1.1rem;
+    padding: 8px 0;
     outline: none;
-    padding: 10px 0;
+    border-radius: 0;
+}
+
+input:focus {
+    border-bottom-color: var(--accent-color);
 }
 
 #search-btn {
-    background: var(--accent-color);
-    border: none;
-    color: #fff;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--accent-color);
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
     cursor: pointer;
-    transition: transform 0.2s ease;
-    display: grid;
-    place-items: center;
+    transition: 0.2s;
 }
 
 #search-btn:hover {
-    transform: scale(1.05);
+    background: var(--accent-color);
+    color: #000;
+    border-color: var(--accent-color);
 }
 
-/* Status Messages */
-.status-msg {
-    text-align: center;
-    margin-top: 20px;
-    min-height: 20px;
-    color: var(--text-muted);
+/* Loading & Error */
+#loading {
+    color: var(--accent-color);
     font-size: 0.9rem;
+    font-family: 'Poppins', monospace;
+    margin-top: 10px;
+    animation: blink 1s infinite;
 }
 
-/* Results Card */
-.result-container {
-    margin-top: 30px;
-    animation: slideIn 0.4s ease-out forwards;
+@keyframes blink { 50% { opacity: 0.5; } }
+
+#error-msg {
+    color: var(--error-color);
+    font-size: 0.9rem;
+    margin-top: 10px;
 }
 
-@keyframes slideIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.word-header {
+/* Results - Compact */
+.word-row {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
 }
 
 #word-text {
-    font-family: var(--font-header);
-    font-size: 2.8rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.5rem;
     line-height: 1;
-    margin-bottom: 5px;
-    text-transform: capitalize;
+    color: #fff;
+    margin-bottom: 12px;
 }
 
-.phonetic {
+#play-sound-btn {
+    background: transparent;
+    border: none;
+    color: var(--accent-color);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.phonetics {
     color: var(--accent-color);
     font-family: monospace;
-    font-size: 1.1rem;
-}
-
-.audio-btn {
-    background: rgba(172, 88, 233, 0.1);
-    border: 1px solid var(--accent-color);
-    color: var(--accent-color);
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-}
-
-.audio-btn:hover {
-    background: var(--accent-color);
-    color: #fff;
+    font-size: 1rem;
+    margin-bottom: 15px;
 }
 
 .divider {
     height: 1px;
-    background: linear-gradient(90deg, transparent, var(--border-color), transparent);
-    margin: 25px 0;
+    background-color: var(--border-color);
+    margin: 10px 0;
+    width: 100%;
 }
 
-/* Definitions */
-.part-of-speech-tag {
+.details {
+    margin-bottom: 10px;
+}
+
+#part-of-speech {
     display: inline-block;
-    background-color: var(--accent-color);
-    color: #fff;
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 4px 8px;
-    border-radius: 4px;
-    text-transform: uppercase;
-    margin-bottom: 15px;
-}
-
-.definition-text {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: #e0e0e0;
-}
-
-/* Example Box */
-.example-box {
-    margin-top: 25px;
-    background-color: var(--card-bg);
-    padding: 15px;
-    border-radius: 8px;
-    border-left: 3px solid var(--accent-color);
-}
-
-.ex-label {
-    display: block;
-    font-size: 0.75rem;
+    background-color: #1a1a1a;
     color: var(--text-muted);
+    font-size: 0.75rem;
+    padding: 2px 6px;
+    border-radius: 3px;
     text-transform: uppercase;
     margin-bottom: 5px;
     font-weight: 600;
 }
 
-.ex-text {
-    font-style: italic;
+#definition {
+    font-size: 1rem;
+    line-height: 1.4;
+    color: #ddd;
+}
+
+.example-box {
+    margin-top: 10px;
     color: var(--text-muted);
+    font-size: 0.9rem;
+    border-left: 2px solid var(--accent-color);
+    padding-left: 10px;
+}
+
+.label {
+    color: var(--accent-color);
+    font-weight: bold;
 }
 
 .hidden {
     display: none;
-}
-
-footer {
-    margin-top: auto;
-    text-align: center;
-    padding-top: 40px;
-    color: #444;
-    font-size: 0.8rem;
-}
-
-/* Responsive Tweaks */
-@media (max-width: 480px) {
-    .dictionary-title { font-size: 2.5rem; }
-    #word-text { font-size: 2rem; }
 }
